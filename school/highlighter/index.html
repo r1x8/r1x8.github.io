@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Highlighter colour detector</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ml5@0.12.2/dist/ml5.min.js"></script>
+    <style>
+      body {
+        background-color: #333333;
+        color: #ffffff;
+        font-family: sans-serif;
+        display: grid;
+        place-items: center;
+      }
+      h1 {
+        background: linear-gradient(90deg, #30C5FF, #FF4B91);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Highlighter colour detector</h1>
+    <br/>
+    <script type="text/javascript">
+      let classifier;
+      let imageModelURL = './model/';
+      let video;
+      let flippedVideo;
+      let label = "Loading Model...";
+    
+      function preload() {
+        // Loads model files using old-style ml5 framework
+        classifier = ml5.imageClassifier(imageModelURL + 'model.json');
+      }
+    
+      function setup() {
+        createCanvas(320, 260);
+        video = createCapture(VIDEO);
+        video.size(320, 240);
+        video.hide();
+    
+        flippedVideo = ml5.flipImage(video);
+        classifyVideo();
+      }
+    
+      function draw() {
+        background(0);
+        image(flippedVideo, 0, 0);
+    
+        // Display classification string label
+        fill(255);
+        textSize(16);
+        textAlign(CENTER);
+        text(label, width / 2, height - 10);
+      }
+    
+      function classifyVideo() {
+        flippedVideo = ml5.flipImage(video);
+        classifier.classify(flippedVideo, gotResult);
+      }
+    
+      function gotResult(error, results) {
+        if (error) {
+          console.error(error);
+          return;
+        }
+        
+        // Corrected mapping: read label property safely from the first index entry
+        if (results && results.length > 0) {
+          label = results[0].label;
+        }
+        
+        // Loop back to classify the next frame automatically
+        classifyVideo();
+      }
+    </script>
+  </body>
+</html>
