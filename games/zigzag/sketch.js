@@ -56,7 +56,6 @@ function fire() {
       score++;
       hitEnemy();
       speed += 0.2;
-      console.log(speed);
     }
   }
 }
@@ -89,12 +88,6 @@ function draw() {
     textFont("Inter");
     textAlign(CENTER, CENTER)
     text("GAME OVER", pagewidth/2, pageheight/2);
-
-    const reloadButton = createButton('&#x21bb;');
-    reloadButton.style('font-size', '40px');
-    reloadButton.position((pagewidth/1.05)-150, (pageheight/1.05)-150);
-    reloadButton.size(150, 150);
-    reloadButton.mousePressed(() => {window.location.reload()});
   }
   
   fill(strokeColor);
