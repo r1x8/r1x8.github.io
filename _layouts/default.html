@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en-US' }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:;" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap" rel="stylesheet">
+    {% seo %}
+    <style>
+      :root {
+        --white: oklch(100% 0 0);
+        --grey-1: oklch(32% 0 0);
+
+        --red-1: oklch(75% 0.14 130);
+        --red-2: oklch(85% 0.12 130);
+
+        --blue-1: oklch(75% 0.14 236.3);
+      }
+
+      body {
+        background-color: var(--grey-1);
+        color: var(--white);
+        font-family: "Inter", "Helvetica", sans-serif;
+        font-feature-settings: "calt" 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      main {
+        max-width: 40vw;
+      }
+      a {
+        text-decoration: none;
+        color: var(--blue-1);
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h1 > a {
+        color: var(--red-1);
+      }
+      h1 > a:hover {
+        color: var(--red-2);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      {% if site.title and site.title != page.title %}
+      <h1 class="title"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a></h1>
+      {% endif %}
+      <hr/>
+      {{ content }}
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+  </body>
+</html>

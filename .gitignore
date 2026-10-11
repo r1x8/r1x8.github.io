@@ -1,0 +1,7 @@
+_site/
+Gemfile.lock
+TODO
+.DS_Store
+
+# Don't make this mistake again!
+nuclear_launch_codes/
